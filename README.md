@@ -1,3 +1,1 @@
-# angular-ivy-cbbusi
-
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-ivy-cbbusi)
+A word cloud social media website coded in Angular 13.
