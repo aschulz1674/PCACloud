@@ -1,6 +1,8 @@
 <h1 (click)="refresh()">words</h1>
 <ul>
-  <li *ngFor="let word of words">{{ word["word"]}} {{word["count"] }}</li>
+  <li (click)="upVote(word['word'])" *ngFor="let word of words">
+    {{ word['word'] }} {{ word['count'] }}
+  </li>
 </ul>
 <form>
   <p>Input your favorite word</p>

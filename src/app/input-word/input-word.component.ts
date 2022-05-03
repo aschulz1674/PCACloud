@@ -30,6 +30,19 @@ export class InputWordComponent implements OnInit {
       );
   }
 
+  upVote(id) {
+    console.log(id);
+    this.http
+      .post<any>(
+        'https://myfirstapi.alexanderschul1.repl.co/api/word/' + id,
+        {}
+      )
+      .subscribe(
+        (data) => {},
+        (error) => console.error(error)
+      );
+  }
+
   getWords() {
     this.http
       .get<any>('https://myfirstapi.alexanderschul1.repl.co/api/word/', {})
