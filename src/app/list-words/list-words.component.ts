@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { error } from '@angular/compiler/src/util';
 
 import { CloudData, CloudOptions } from 'angular-tag-cloud-module';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 @Component({
@@ -14,16 +15,35 @@ import { CloudData, CloudOptions } from 'angular-tag-cloud-module';
         [data]="data"
         [width]="options.width"
         [height]="options.height"
-        [overflow]="options.overflow">
+        [overflow]="options.overflow"
+        (clicked)="logClicked($event)">
       </angular-tag-cloud>
     </div>
   `,
 })
 export class ListWordsComponent implements OnInit {
   constructor(private http: HttpClient) {}
-  words = '';
+  words = [];
+
   ngOnInit() {
-    setInterval(() => this.getWords(), 1000);
+    setInterval(() => this.getWords(), 500);
+  }
+
+  logClicked(clicked: CloudData) {
+    console.log(clicked);
+    this.upVote(clicked.text);
+  }
+  upVote(id) {
+    console.log(id);
+    this.http
+      .post<any>(
+        'https://myfirstapi.alexanderschul1.repl.co/api/word/' + id,
+        {}
+      )
+      .subscribe(
+        (data) => {},
+        (error) => console.error(error)
+      );
   }
 
   getWords() {
@@ -36,8 +56,13 @@ export class ListWordsComponent implements OnInit {
         },
         (error) => console.error(error)
       );
+    this.newData();
   }
-
+  newData() {
+    const changedData$: Observable<CloudData[]> = of(this.words);
+    changedData$.subscribe((res) => (this.data = res));
+  }
+  D;
   options: CloudOptions = {
     // if width is between 0 and 1 it will be set to the width of the upper element multiplied by the value
     width: 0,
@@ -46,19 +71,5 @@ export class ListWordsComponent implements OnInit {
     overflow: false,
   };
 
-  data: CloudData[] = [
-    {
-      text: 'Weight-8-link-color',
-      weight: 8,
-      link: 'https://google.com',
-      color: '#ffaaee',
-    },
-    {
-      text: 'Weight-10-link',
-      weight: 10,
-      link: 'https://google.com',
-      tooltip: 'display a tooltip',
-    },
-    // ...
-  ];
+  data: CloudData[] = this.words;
 }
