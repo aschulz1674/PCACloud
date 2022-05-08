@@ -1,3 +1,7 @@
 li {
   cursor: pointer;
 }
+form {
+  display: inline-block;
+  text-align: center;
+}

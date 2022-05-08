@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 @Component({
   selector: 'list-words',
   template: `
-    <div>
+    <div style="cursor:pointer">
       <angular-tag-cloud
         [data]="data"
         [width]="options.width"
@@ -26,7 +26,7 @@ export class ListWordsComponent implements OnInit {
   words = [];
 
   ngOnInit() {
-    setInterval(() => this.getWords(), 500);
+    setInterval(() => this.getWords(), 5000);
   }
 
   logClicked(clicked: CloudData) {
@@ -65,10 +65,10 @@ export class ListWordsComponent implements OnInit {
   D;
   options: CloudOptions = {
     // if width is between 0 and 1 it will be set to the width of the upper element multiplied by the value
-    width: 0,
+    width: 1,
     // if height is between 0 and 1 it will be set to the height of the upper element multiplied by the value
     height: 0,
-    overflow: false,
+    overflow: true,
   };
 
   data: CloudData[] = this.words;
