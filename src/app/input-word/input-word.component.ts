@@ -13,9 +13,7 @@ export class InputWordComponent implements OnInit {
   constructor(private http: HttpClient) {}
   words = '';
   word = '';
-  ngOnInit() {
-    setInterval(() => this.getWords(), 1000);
-  }
+  ngOnInit() {}
 
   onSubmit() {
     console.log(this.word);
