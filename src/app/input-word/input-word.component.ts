@@ -11,21 +11,32 @@ import { error } from '@angular/compiler/src/util';
 })
 export class InputWordComponent implements OnInit {
   constructor(private http: HttpClient) {}
+
   words = '';
   word = '';
-  ngOnInit() {}
+  state = false;
+  ngOnInit() {
+    setInterval(() => this.canDo(), 1500);
+  }
 
   onSubmit() {
-    console.log(this.word);
-    this.http
-      .post<any>(
-        'https://myfirstapi.alexanderschul1.repl.co/api/word/' + this.word,
-        {}
-      )
-      .subscribe(
-        (data) => {},
-        (error) => console.error(error)
-      );
+    if (this.state == false) {
+      this.state = true;
+      console.log(this.word);
+      this.http
+        .post<any>(
+          'https://myfirstapi.alexanderschul1.repl.co/api/word/' + this.word,
+          {}
+        )
+        .subscribe(
+          (data) => {},
+          (error) => console.error(error)
+        );
+    }
+  }
+
+  canDo() {
+    this.state = false;
   }
 
   upVote(id) {
