@@ -29,7 +29,11 @@ export class InputWordComponent implements OnInit {
           {}
         )
         .subscribe(
-          (data) => {},
+          (data) => {
+            if (data.error == true) {
+              window.alert(data);
+            }
+          },
           (error) => console.error(error)
         );
     }
